@@ -1,4 +1,4 @@
-#include <stdio.h>
+I#include <stdio.h>
 
 int main()
 {
@@ -62,14 +62,28 @@ int main()
             premio = valor_apostado * 50;
         else
         {
-            int grupo1 = d1 * 10 + u1;//58
-            int grupo2 = d2 * 10 + u2;//89
+            int dezena_apostado = d1 * 10 + u1;
+            int dezena_sorteado = d2 * 10 + u2;
+            
+            if(dezena_apostado == 0)
+                dezena_apostado = 100;
+            
+            if(dezena_sorteado == 0)
+                dezena_sorteado = 100;
+            
+            
+            int grupo_apostado  = dezena_apostado / 4; //divide por quatro pois é o tamanho de cada grupo
+            int grupo_sorteado = dezena_sorteado / 4; 
+            
+            
+            if(dezena_apostado % 4 == 0) //caso o número divida por 4 significa que é o limite do próximo grupo
+                grupo_apostado --;
+                
+            if(dezena_sorteado % 4 == 0)
+                grupo_sorteado --;
 
-            if (grupo1 >= grupo2 && grupo1 <= grupo2 + 3)
-                premio = valor_apostado * 16;
-            else if (grupo1 >= 97 && grupo2 == 0)
-                premio = valor_apostado * 16;
-            else if (grupo2 >= 97 && grupo1 == 0)
+
+            if (grupo_apostado == grupo_sorteado)
                 premio = valor_apostado * 16;
             else
                 premio = 0;
