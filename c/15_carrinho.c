@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define LIN 5 
+#define LIN 5
 #define COL 5
 
 
@@ -18,7 +18,7 @@ struct Carro
 {
     int linha;
     int coluna;
-    char direcao; // L, O, N, S 
+    char direcao; // L, O, N, S
 };
 
 struct Carro carrinho;
@@ -33,7 +33,7 @@ void imprimir_pista()
                 printf("%c", obter_simbolo_carro());
             else
                 printf("%c", pista[l][c]);
-             
+
             printf("|");
         }
 
@@ -53,7 +53,7 @@ char obter_simbolo_carro()
         return '<';
     else if(carrinho.direcao == 'S') // SUL
         return 'V';
-    else 
+    else
         return 'A'; //NORTE
 }
 
@@ -68,11 +68,11 @@ int mover()
         carrinho.coluna++;
     }
     else if(carrinho.direcao == 'O')
-    {   
+    {
         if(carrinho.coluna - 1 <= 0 ||
            pista[carrinho.linha][carrinho.coluna - 1] != '_')
                 return 0;
-        
+
         carrinho.coluna--;
     }
     else if(carrinho.direcao == 'S')
@@ -80,7 +80,7 @@ int mover()
         if(carrinho.linha + 1 >= LIN ||
            pista[carrinho.linha + 1][carrinho.coluna] != '_')
                 return 0;
-        
+
             carrinho.linha ++;
     }
     else
@@ -94,6 +94,49 @@ int mover()
     return 1;
 }
 
+void esquerda()
+{
+  if(carrinho.direcao == 'L') //LESTE
+    carrinho.direcao = 'N';
+  else if(carrinho.direcao == 'O') // OESTE
+    carrinho.direcao = 'S';
+  else if(carrinho.direcao == 'S') // SUL
+    carrinho.direcao = 'L';
+  else
+    carrinho.direcao = 'O'; //NORTE
+}
+
+void esquerda(int vezes)
+{
+  while(vezes >= 0)
+  {
+    esquerda();
+
+    --vezes;
+  }
+}
+
+void direita()
+{
+  if(carrinho.direcao == 'L') //LESTE
+    carrinho.direcao = 'S';
+  else if(carrinho.direcao == 'O') // OESTE
+    carrinho.direcao = 'N';
+  else if(carrinho.direcao == 'S') // SUL
+    carrinho.direcao = 'O';
+  else
+    carrinho.direcao = 'L'; //NORTE
+}
+
+void direita(int vezes)
+{
+  while(vezes >= 0)
+  {
+    direita();
+
+    --vezes;
+  }
+}
 
 void esperar(int tempo)
 {
@@ -112,7 +155,7 @@ int main()
     carrinho.direcao = 'L';
     carrinho.linha = 0;
     carrinho.coluna = 0;
-    
+
     limpar_tela();
 
     //imprimo a pista
@@ -128,6 +171,6 @@ int main()
         limpar_tela();
         imprimir_pista();
     }
-    
+
     return 0;
 }
